@@ -7,6 +7,8 @@ import java.util.List;
 import javax.servlet.annotation.WebServlet;
 
 import org.vaadin.addons.coverflow.CoverFlow;
+import org.vaadin.addons.coverflow.CoverFlow.ImageSelectionEvent;
+import org.vaadin.addons.coverflow.CoverFlow.ImageSelectionListener;
 import org.vaadin.addons.coverflow.client.CoverflowStyle;
 
 import com.vaadin.annotations.Theme;
@@ -16,6 +18,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 @Theme("demo")
@@ -27,6 +30,15 @@ public class DemoUI extends UI {
 	@VaadinServletConfiguration(productionMode = false, ui = DemoUI.class, widgetset = "org.vaadin.addons.coverflow.demo.DemoWidgetSet")
 	public static class Servlet extends VaadinServlet {
 	}
+
+	private final ImageSelectionListener changeListener = new ImageSelectionListener() {
+
+		@Override
+		public void onImageSelection(final ImageSelectionEvent event) {
+			Notification.show("Selected Element: " + event.getSelectedIndex() + " " + event.getUrl());
+		}
+
+	};
 
 	@Override
 	protected void init(final VaadinRequest request) {
@@ -62,20 +74,22 @@ public class DemoUI extends UI {
 		final GridLayout layout = new GridLayout(2, 1);
 		layout.setStyleName("demoContentLayout");
 		layout.setSizeFull();
-		createAndAddCoverflow(layout, horizontalUrls);
-		createAndAddCoverflow(layout, verticalUrls);
-		createAndAddCoverflow(layout, mixedUrls);
+		createAndAddCoverflow(layout, "Carousel with vertical images", horizontalUrls);
+		createAndAddCoverflow(layout, "Carousel with horizontal images", verticalUrls);
+		createAndAddCoverflow(layout, "Carousel with vertical and horizontal images", mixedUrls);
 
 		setContent(layout);
 	}
 
-	private static CoverFlow createAndAddCoverflow(final GridLayout layout, final List<String> imgUrls) {
+	private CoverFlow createAndAddCoverflow(final GridLayout layout, final String caption, final List<String> imgUrls) {
 		// Initialize our new UI component
 		final CoverFlow coverFlow = new CoverFlow(imgUrls);
 		coverFlow.setWidth(400, Unit.PIXELS);
 		coverFlow.setHeight(400, Unit.PIXELS);
 		coverFlow.setCoverflowStyle(CoverflowStyle.CAROUSEL);
 		coverFlow.setMaxImageSize(300);
+		coverFlow.addImageSelectionListener(this.changeListener);
+		coverFlow.setCaption(caption);
 
 		layout.addComponent(coverFlow);
 		layout.setComponentAlignment(coverFlow, Alignment.MIDDLE_CENTER);

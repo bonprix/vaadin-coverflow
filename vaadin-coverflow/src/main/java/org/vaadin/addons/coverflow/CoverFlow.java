@@ -1,5 +1,7 @@
 package org.vaadin.addons.coverflow;
 
+import java.io.Serializable;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import org.vaadin.addons.coverflow.client.CoverFlowServerRpc;
@@ -9,6 +11,8 @@ import org.vaadin.addons.coverflow.client.CoverflowStyle;
 import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.StyleSheet;
 import com.vaadin.ui.AbstractJavaScriptComponent;
+import com.vaadin.ui.Component;
+import com.vaadin.util.ReflectTools;
 
 /**
  * Work in Progress
@@ -22,13 +26,20 @@ public class CoverFlow extends AbstractJavaScriptComponent {
 
 	private static final long serialVersionUID = 571299685547099480L;
 
+	private int selectedIndex = -1;
+
 	@SuppressWarnings("serial")
 	private final CoverFlowServerRpc rpc = new CoverFlowServerRpc() {
 
 		@Override
-		public void click(final int idx) {
-		}
+		public void click(final String url, final boolean initialSelection) {
+			final int selection = getState(false).urlList.indexOf(url);
 
+			selectedIndex = selection;
+			if (!initialSelection) {
+				fireEvent(new ImageSelectionEvent(CoverFlow.this, url, selection));
+			}
+		}
 	};
 
 	public CoverFlow(final List<String> urls) {
@@ -39,6 +50,10 @@ public class CoverFlow extends AbstractJavaScriptComponent {
 
 	public void setUrlList(final List<String> urls) {
 		getState().urlList = urls;
+	}
+
+	public int getSelectedIndex() {
+		return selectedIndex;
 	}
 
 	public void setMaxImageSize(final int maxSize) {
@@ -97,4 +112,55 @@ public class CoverFlow extends AbstractJavaScriptComponent {
 	protected CoverFlowState getState(final boolean markAsDirty) {
 		return (CoverFlowState) super.getState(markAsDirty);
 	}
+
+	public static class ImageSelectionEvent extends Component.Event {
+
+		private static final long serialVersionUID = -4717161002326588670L;
+		private final String url;
+		private final int idx;
+
+		public ImageSelectionEvent(final Component source, final String url, final int idx) {
+			super(source);
+			this.url = url;
+			this.idx = idx;
+		}
+
+		public String getUrl() {
+			return url;
+		}
+
+		public int getSelectedIndex() {
+			return idx;
+		}
+
+	};
+
+	public interface ImageSelectionListener extends Serializable {
+		public static final Method IMAGE_SELECTION_METHOD = ReflectTools
+		        .findMethod(ImageSelectionListener.class, "onImageSelection", ImageSelectionEvent.class);
+
+		public void onImageSelection(final ImageSelectionEvent event);
+	}
+
+	/**
+	 * Adds a scroll listener. This listener will be called when a scrollEvent
+	 * occurs.
+	 *
+	 * @param listener
+	 *            the listener to add
+	 */
+	public void addImageSelectionListener(final ImageSelectionListener listener) {
+		addListener(ImageSelectionEvent.class, listener, ImageSelectionListener.IMAGE_SELECTION_METHOD);
+	}
+
+	/**
+	 * Removes a scroll listener
+	 *
+	 * @param listener
+	 *            the listener to remove
+	 */
+	public void removeImageSelectionListener(final ImageSelectionListener listener) {
+		removeListener(ImageSelectionEvent.class, listener, ImageSelectionListener.IMAGE_SELECTION_METHOD);
+	}
+
 }

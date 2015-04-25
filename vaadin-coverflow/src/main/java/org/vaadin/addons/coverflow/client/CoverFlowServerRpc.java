@@ -4,6 +4,6 @@ import com.vaadin.shared.communication.ServerRpc;
 
 public interface CoverFlowServerRpc extends ServerRpc {
 
-	public void click(final int idx);
+	public void click(final String url, final boolean initialSelection);
 
 }

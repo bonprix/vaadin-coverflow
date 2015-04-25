@@ -1,6 +1,8 @@
 window.org_vaadin_addons_coverflow_CoverFlow = function() {
 
 	var elem = this.getElement(), self = this;
+	
+	var _current = null;
 
 	this.clearSelection = function() {
 		jcrop_api.release();
@@ -13,11 +15,11 @@ window.org_vaadin_addons_coverflow_CoverFlow = function() {
 
 		var ulElem = $("<ul>");
 		$(elem).append(ulElem);
-		
+
 		for (i in state.urlList) {
-			
+
 			var liElem = $("<li>");
-			$(ulElem).append(liElem);			
+			$(ulElem).append(liElem);
 
 			var imageElem = $("<img>").attr({
 				"src" : state.urlList[i]
@@ -27,17 +29,21 @@ window.org_vaadin_addons_coverflow_CoverFlow = function() {
 			});
 			$(liElem).append(imageElem);
 		}
-		
+
 		var start = state.start < 0 ? 'center' : state.start;
 
 		$(elem).flipster({
-	        style:              state.style.toLowerCase(), // Switch between 'coverflow' or 'carousel' display styles
-	        start:              start, // Starting item. Set to 0 to start at the first, 'center' to start in the middle or the index of the item you want to start with.
+			style : state.style.toLowerCase(),
+			start : start,
+			enableKeyboard : state.enableKeyboard,
+			enableMousewheel : state.enableMousewheel,
 
-	        enableKeyboard:     state.enableKeyboard, // Enable left/right arrow navigation
-	        enableMousewheel:   state.enableMousewheel, // Enable scrollwheel navigation (up = left, down = right)
+			onItemSwitch : function() {
+				var url = $(elem).find(".flip-current img").attr("src");
 
-	        onItemSwitch:       function(){} // Callback function when items are switches
+				self.getRpcProxy().click(url, _current == null);
+				_current = url;
+			} // Callback function when items are switches
 		});
 	}
 
