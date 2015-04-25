@@ -12,7 +12,7 @@ The Coverflow component is an animated image gallery which uses CSS3 3D effects 
 
 ## Online demo
 
-Pending...
+http://bonprix.jelastic.servint.net/vaadin-coverflow-demo/
 
 ## Usage
 
@@ -99,15 +99,6 @@ coverFlow.setCoverflowStyle(CoverflowStyle.CAROUSEL);
 coverFlow.setMaxImageSize(300);
 
 layout.addComponent(coverFlow);
-
-// add a scroll listener
-scrollablePanel.addScrollListener(new ScrollListener() {
-	
-	@Override
-	public void onScroll(final ScrollEvent event) {
-		Notification.show("Scrolled: " + event.getScrollData().toString());
-	}
-});
 
 // add image selection listener
 coverFlow.addImageSelectionListener(
