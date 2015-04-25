@@ -4,7 +4,7 @@
 	<groupId>org.vaadin.addons</groupId>
 	<artifactId>vaadin-coverflow</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<name>Coverflow Add-on</name>
 	<description>An animated coverflow widget</description>
 	<url>https://github.com/bonprix/vaadin-coverflow</url>

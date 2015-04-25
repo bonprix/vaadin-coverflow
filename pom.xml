@@ -4,7 +4,7 @@
 	<groupId>org.vaadin.addons</groupId>
 	<artifactId>vaadin-coverflow-root</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<name>Coverflow Add-on Root Project</name>
 
 	<modules>
@@ -48,7 +48,7 @@
 		<connection>scm:git:git@github.com:bonprix/vaadin-coverflow.git</connection>
 		<developerConnection>scm:git:git@github.com:bonprix/vaadin-coverflow.git</developerConnection>
 		<url>https://github.com/bonprix/vaadin-coverflow.git</url>
-		<tag>vaadin-coverflow-root-1.0.0</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<repositories>
