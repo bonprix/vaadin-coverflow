@@ -15,9 +15,14 @@ import com.vaadin.ui.Component;
 import com.vaadin.util.ReflectTools;
 
 /**
- * Work in Progress
+ * The Coverflow widget uses the jQuery Addon flipster <a
+ * href="https://github.com/drien/jquery-flipster">Flipster</a> to enable a
+ * coverflow style image gallery.<br/>
+ * <br/>
+ * Every call to one of the CoverFlow-Setter methods will cause a complete
+ * reinitialization of the coverflow on the client.
  *
- * @author cthiel
+ * @author Christian Thiel
  *
  */
 @StyleSheet({ "vaadin://coverflow/flipster.min.css" })
@@ -42,12 +47,23 @@ public class CoverFlow extends AbstractJavaScriptComponent {
 		}
 	};
 
+	/**
+	 * Creates a new coverflow widget with the given image URLs.
+	 *
+	 * @param urls
+	 */
 	public CoverFlow(final List<String> urls) {
 		registerRpc(this.rpc);
 
 		setUrlList(urls);
 	}
 
+	/**
+	 * Sets the image URLs. Causes a reinitialization.
+	 *
+	 * @param urls
+	 *            the URLs
+	 */
 	public void setUrlList(final List<String> urls) {
 		getState().urlList = urls;
 	}
@@ -56,6 +72,13 @@ public class CoverFlow extends AbstractJavaScriptComponent {
 		return selectedIndex;
 	}
 
+	/**
+	 * Sets the max size of the displayed images in pixels (both dimensions).
+	 * Causes a reinitialization.
+	 *
+	 * @param maxSize
+	 *            the max image size in pixels
+	 */
 	public void setMaxImageSize(final int maxSize) {
 		getState().maxSize = maxSize;
 	}
@@ -64,6 +87,13 @@ public class CoverFlow extends AbstractJavaScriptComponent {
 		return getState(false).maxSize;
 	}
 
+	/**
+	 * Set true to enable global keyboard navigation with the arrow keys. Causes
+	 * a reinitialization.
+	 *
+	 * @param keyboardEnable
+	 *            if keyboard navigation should be enabled
+	 */
 	public void setKeyboardEnable(final boolean keyboardEnable) {
 		getState().enableKeyboard = keyboardEnable;
 	}
@@ -72,6 +102,12 @@ public class CoverFlow extends AbstractJavaScriptComponent {
 		return getState(false).enableKeyboard;
 	}
 
+	/**
+	 * Set true to enable mousewheel navigation. Causes a reinitialization.
+	 *
+	 * @param mousewheelEnable
+	 *            if mousewheel navigation should be enabled
+	 */
 	public void setMousewheelEnable(final boolean mousewheelEnable) {
 		getState().enableMousewheel = mousewheelEnable;
 	}
@@ -80,6 +116,11 @@ public class CoverFlow extends AbstractJavaScriptComponent {
 		return getState(false).enableMousewheel;
 	}
 
+	/**
+	 * Sets the style of the coverflow. Causes a reinitialization.
+	 *
+	 * @param style
+	 */
 	public void setCoverflowStyle(final CoverflowStyle style) {
 		getState().style = style;
 	}
@@ -125,10 +166,20 @@ public class CoverFlow extends AbstractJavaScriptComponent {
 			this.idx = idx;
 		}
 
+		/**
+		 * Returns the URL of the now selected image.
+		 *
+		 * @return the url of the selected image
+		 */
 		public String getUrl() {
 			return url;
 		}
 
+		/**
+		 * Returns the index of the selected image in the given URL list.
+		 *
+		 * @return the index of the selected image
+		 */
 		public int getSelectedIndex() {
 			return idx;
 		}
@@ -137,14 +188,14 @@ public class CoverFlow extends AbstractJavaScriptComponent {
 
 	public interface ImageSelectionListener extends Serializable {
 		public static final Method IMAGE_SELECTION_METHOD = ReflectTools
-		        .findMethod(ImageSelectionListener.class, "onImageSelection", ImageSelectionEvent.class);
+				.findMethod(ImageSelectionListener.class, "onImageSelection", ImageSelectionEvent.class);
 
 		public void onImageSelection(final ImageSelectionEvent event);
 	}
 
 	/**
-	 * Adds a scroll listener. This listener will be called when a scrollEvent
-	 * occurs.
+	 * Adds an image selected listener. This listener will be called when an
+	 * imageSelectionEvent occurs.
 	 *
 	 * @param listener
 	 *            the listener to add
@@ -154,7 +205,7 @@ public class CoverFlow extends AbstractJavaScriptComponent {
 	}
 
 	/**
-	 * Removes a scroll listener
+	 * Removes an image selectedlistener
 	 *
 	 * @param listener
 	 *            the listener to remove
