@@ -24,4 +24,4 @@ src/main/webapp/VAADIN/widgetsets/*
 .classpath
 .project
 */.settings/
-
+.settings
