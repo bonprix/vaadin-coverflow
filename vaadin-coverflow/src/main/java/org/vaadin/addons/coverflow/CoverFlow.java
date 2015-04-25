@@ -17,8 +17,8 @@ import com.vaadin.util.ReflectTools;
 /**
  * The Coverflow widget uses the jQuery Addon flipster <a
  * href="https://github.com/drien/jquery-flipster">Flipster</a> to enable a
- * coverflow style image gallery.<br/>
- * <br/>
+ * coverflow style image gallery.<br>
+ * <br>
  * Every call to one of the CoverFlow-Setter methods will cause a complete
  * reinitialization of the coverflow on the client.
  *
@@ -51,6 +51,7 @@ public class CoverFlow extends AbstractJavaScriptComponent {
 	 * Creates a new coverflow widget with the given image URLs.
 	 *
 	 * @param urls
+	 *            image URL list
 	 */
 	public CoverFlow(final List<String> urls) {
 		registerRpc(this.rpc);
@@ -120,6 +121,7 @@ public class CoverFlow extends AbstractJavaScriptComponent {
 	 * Sets the style of the coverflow. Causes a reinitialization.
 	 *
 	 * @param style
+	 *            the style
 	 */
 	public void setCoverflowStyle(final CoverflowStyle style) {
 		getState().style = style;
@@ -133,7 +135,7 @@ public class CoverFlow extends AbstractJavaScriptComponent {
 	 * Sets the start position of the coverflow. Every value lower than 0 sets
 	 * the start position to the center value.
 	 *
-	 * @param start
+	 * @param startIdx
 	 *            start value
 	 */
 	public void setStartElement(final int startIdx) {
