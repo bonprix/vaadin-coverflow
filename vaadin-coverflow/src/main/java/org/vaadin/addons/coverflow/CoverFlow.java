@@ -24,9 +24,11 @@ import com.vaadin.util.ReflectTools;
  *
  * @author Christian Thiel
  *
+ * jquery version: 3.1.1 (slim version wouldn't work, migration package not required)
+ * flipster version: 1.1.2
  */
-@StyleSheet({ "vaadin://coverflow/flipster.min.css" })
-@JavaScript({ "vaadin://coverflow/jquery-1.11.2.min.js", "vaadin://coverflow/flipster.min.js", "CoverFlow.js" })
+@StyleSheet({ "vaadin://coverflow/jquery.flipster.min.css" })
+@JavaScript({ "vaadin://coverflow/jquery.min.js", "vaadin://coverflow/jquery.flipster.min.js", "CoverFlow.js" })
 public class CoverFlow extends AbstractJavaScriptComponent {
 
 	private static final long serialVersionUID = 571299685547099480L;

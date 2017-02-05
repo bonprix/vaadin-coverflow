@@ -35,8 +35,8 @@ window.org_vaadin_addons_coverflow_CoverFlow = function() {
 		$(elem).flipster({
 			style : state.style.toLowerCase(),
 			start : start,
-			enableKeyboard : state.enableKeyboard,
-			enableMousewheel : state.enableMousewheel,
+			keyboard : state.enableKeyboard,
+			scrollwheel : state.enableMousewheel,
 
 			onItemSwitch : function() {
 				var url = $(elem).find(".flip-current img").attr("src");
