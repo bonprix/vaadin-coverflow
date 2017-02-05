@@ -31,12 +31,16 @@ window.org_vaadin_addons_coverflow_CoverFlow = function() {
 		}
 
 		var start = state.start < 0 ? 'center' : state.start;
+		var autoplay = state.autoplay_milliseconds <= 0 ? false : state.autoplay_milliseconds;
 
 		$(elem).flipster({
 			style : state.style.toLowerCase(),
 			start : start,
 			keyboard : state.enableKeyboard,
 			scrollwheel : state.enableMousewheel,
+            loop : state.enableLoop,
+            autoplay : autoplay,
+            buttons: state.enableNavigationButtons,
 
 			onItemSwitch : function() {
 				var url = $(elem).find(".flip-current img").attr("src");

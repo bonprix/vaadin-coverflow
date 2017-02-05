@@ -13,6 +13,9 @@ public class CoverFlowState extends JavaScriptComponentState {
 
 	public boolean enableKeyboard = true;
 	public boolean enableMousewheel = true;
+	public boolean enableNavigationButtons = false;
+	public boolean enableLoop = true;
+	public int autoplay_milliseconds = -1; // -1 = autoplay off
 	public int start = -1; // -1 = center
 
 	public CoverflowStyle style = CoverflowStyle.CAROUSEL;

@@ -120,6 +120,56 @@ public class CoverFlow extends AbstractJavaScriptComponent {
 	}
 
 	/**
+	 * Set true to enable loop functionality, i.e. moving forward from the last element jumps to the first and vice versa.
+	 * Causes a reinitialization.
+	 *
+	 * @param loopEnable
+	 *            if loop functionality should be enabled
+	 */
+	public void setLoopEnable(final boolean loopEnable) {
+		getState().enableLoop = loopEnable;
+	}
+
+	public boolean isLoopEnabled() {
+		return getState(false).enableLoop;
+	}
+
+	/**
+	 * Set true to enable navigation buttons. Causes a reinitialization.
+	 *
+	 * @param navigationButtonsEnable
+	 *            if navigationButtonsEnable should be enabled
+	 */
+	public void setNavigationButtonsEnable(final boolean navigationButtonsEnable) {
+		getState().enableNavigationButtons = navigationButtonsEnable;
+	}
+
+	public boolean isNavigationButtonsEnabled() {
+		return getState(false).enableNavigationButtons;
+	}
+
+	/**
+	 * Set milliseconds greater than 0 to activate autoplay feature.
+	 *
+	 * @param milliseconds null or lesser than 1 to switch autoplay off, otherwise millisecons greater than 1000 to define speed
+	 */
+	public void setAutoplay(final Integer milliseconds) {
+		if (milliseconds == null || milliseconds <= 0)
+			getState().autoplay_milliseconds = -1; // autoplay = off
+		else if (milliseconds < 1000)
+			getState().autoplay_milliseconds = 1000;
+		else
+			getState().autoplay_milliseconds = milliseconds;
+
+		if (isAutoplay())
+			setLoopEnable(true);
+	}
+
+	public boolean isAutoplay() {
+		return getState().autoplay_milliseconds > 0;
+	}
+
+	/**
 	 * Sets the style of the coverflow. Causes a reinitialization.
 	 *
 	 * @param style
