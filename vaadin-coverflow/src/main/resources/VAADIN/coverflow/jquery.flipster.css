@@ -88,7 +88,11 @@
 }
 .flipster__nav__item {
   display: inline-block;
-  margin: 0 0.25em;
+  /*margin: 0 0.25em;*/
+  visibility: hidden;
+}
+.flipster__nav__item--current {
+  visibility: visible;
 }
 .flipster__nav__link {
   display: block;

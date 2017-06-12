@@ -8,11 +8,7 @@ The Coverflow component is an animated image gallery which uses CSS3 3D effects 
 - 3D CSS effects
 - imageSelectionListener fires in every client-side navigation
 - adjust max image size
-- this add-on loads jquery-1.11.2.min.js
-
-## Online demo
-
-http://bonprix.jelastic.servint.net/vaadin-coverflow-demo/
+- this add-on loads jquery.min.js
 
 ## Usage
 
@@ -42,6 +38,17 @@ mvn jetty:run
 To see the demo, navigate to http://localhost:8080/
  
 ## Release notes
+
+### version 2.0.0
+- autoplay: set time for automatic item change
+- styles: choose from four styles. Carousel, CoverFlow, Flat or Wheel
+- navigation: choose if you want back and previous buttons shown
+- callback method for clicking frontmost item 
+- category and title available in item-changed callback method
+
+### version 1.1.0
+- updated libraries to jquery 3.1.1 and flipster 1.1.2
+- fixes issues #1 and #2
 
 ### Version 1.0.0
 - Bleeding edge :)
